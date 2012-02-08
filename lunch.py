@@ -6,7 +6,12 @@ buddies = ['sip:buddy1@yourdomain.com', 'sip:buddy2@yourdomain.com']
 pidgin = bus.get_object("im.pidgin.purple.PurpleService", "/im/pidgin/purple/PurpleObject")
 purple = dbus.Interface(pidgin, "im.pidgin.purple.PurpleInterface")
 PURPLE_CONV_TYPE_IM = 1
- 
+
+#Update pidgin status
+status = purple.PurpleSavedstatusNew("Away", current)
+purple.PurpleSavedstatusSetMessage(status, "Out To Lunch ...")
+purple.PurpleSavedstatusActivate(status)
+
 account = purple.PurpleAccountsFind('your.email@yourdomain.com,', 'prpl-sipe')
 for b in buddies:
     buddy = purple.PurpleFindBuddy(account, b)
